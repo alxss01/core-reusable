@@ -6,7 +6,7 @@ on:
       enable-sonar:
         required: true
         type: boolean
-        default: false
+        default: true
       java-version:
         required: true
         type: string
