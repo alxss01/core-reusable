@@ -1,0 +1,35 @@
+name: Build
+
+on:
+  workflow_call:
+    inputs:
+      enable-sonar:
+        required: true
+        type: boolean
+        default: false
+      java-version:
+        required: true
+        type: string
+        default: '17'
+    outputs:
+      version:
+        value: ${{ jobs.build.outputs.version }}
+
+env: 
+  JAVA_VERSION: ${{ inputs.java-version }}
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      version: ${{ steps.extract-version.outputs.version }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Extract version
+        id: extract-version
+        run: echo "version=1.0.8" >> $GITHUB_OUTPUT
