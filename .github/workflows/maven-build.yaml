@@ -5,12 +5,10 @@ on:
     inputs:
       enable-sonar:
         required: true
-        type: boolean
-        default: true
+        type: string
       java-version:
         required: true
         type: string
-        default: '17'
     outputs:
       version:
         value: ${{ jobs.build.outputs.version }}
