@@ -23,7 +23,7 @@ jobs:
                 echo $mvn
                 version=$($mvn -f "${{ github.workspace }}/pom.xml" help:evaluate -Dexpression=project.version -q -DforceStdout)
                 echo "Versão do projeto: $version"
-                echo "$version" >> $GITHUB_OUTPUT
+                echo "version=$version" >> $GITHUB_OUTPUT
 
             - name: Set Up Java
               uses: actions/setup-java@v4
