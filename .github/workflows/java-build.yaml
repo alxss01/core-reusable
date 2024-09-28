@@ -19,7 +19,9 @@ jobs:
             - name: create variables
               id: variables
               run: |
-                version=$(mvn ${{ github.workspace }}/pom.xml help:evaluate -Dexpression=project.version -q -DforceStdout)
+                mvn=$(which mvn)
+                echo $mvn
+                version=$($mvn ${{ github.workspace }}/pom.xml help:evaluate -Dexpression=project.version -q -DforceStdout)
                 echo "Versão do projeto: $version"
                 echo "$version" >> $GITHUB_OUTPUT
 
