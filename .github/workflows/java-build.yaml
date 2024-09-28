@@ -24,7 +24,7 @@ jobs:
                 version=$($mvn -f "${{ github.workspace }}/pom.xml" help:evaluate -Dexpression=project.version -q -DforceStdout)
                 echo "Versão do projeto: $version"
                 echo "version=$version" >> $GITHUB_OUTPUT
-                appName=$(echo ${{ github.repository }} | awk -F'/' '{print $2}')
+                appName=$(echo "${{ github.repository }}" | awk -F'/' '{print $2}')
                 echo "Name: $appName"
                 echo "appName=$appName" >> $GITHUB_OUTPUT
 
