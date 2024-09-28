@@ -48,9 +48,9 @@ jobs:
 
             - name: Verificar se o arquivo JAR foi gerado
               run: ls -l target/
-              
-            - name: Docker Build and Push
-              uses: docker/build-push-action@v6
-              with:
-                push: true
-                tags: alexsouzasilva/${{ steps.variables.outputs.appName }}:${{ steps.variables.outputs.version }}
+
+            - name: Docker Build
+              run: docker build -t alexsouzasilva/${{ steps.variables.outputs.appName }}:${{ steps.variables.outputs.version }} .
+
+            - name: Docker Push
+              run: docker push alexsouzasilva/${{ steps.variables.outputs.appName }}:${{ steps.variables.outputs.version }}
