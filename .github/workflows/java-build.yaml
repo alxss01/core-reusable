@@ -45,6 +45,10 @@ jobs:
               with:
                 username: ${{ secrets.DOCKERHUB_USERNAME }}
                 password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+            - name: Verificar se o arquivo JAR foi gerado
+              run: ls -l target/
+              
             - name: Docker Build and Push
               uses: docker/build-push-action@v6
               with:
