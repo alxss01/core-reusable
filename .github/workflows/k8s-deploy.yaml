@@ -1,0 +1,19 @@
+name: Java Build
+
+on:
+    workflow_call:
+        inputs:
+            image-version:
+                required: true
+                type: string
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v4
+            
+            - name: Version verify
+              run: echo ${{ inputs.image-version }}
+
