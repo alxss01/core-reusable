@@ -26,6 +26,7 @@ jobs:
               run: |
                 cd k8s
                 kustomize edit set image ms-find-car=alexsouzasilva/ms-find-car:${{ inputs.image-version }}
+                cat kustomization.yaml
 
             - name: commit
               run: |

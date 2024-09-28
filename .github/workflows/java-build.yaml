@@ -28,6 +28,8 @@ jobs:
                 mvn=$(which mvn)
                 echo $mvn
                 version=$($mvn -f "${{ github.workspace }}/pom.xml" help:evaluate -Dexpression=project.version -q -DforceStdout)
+                version=${version%-*}
+                version="${version:0:3}.${{ github.run_number }}"
                 echo "Versão do projeto: $version"
                 echo "version=$version" >> $GITHUB_OUTPUT
                 appName=$(echo "${{ github.repository }}" | awk -F'/' '{print $2}')
