@@ -16,3 +16,11 @@ jobs:
         steps:
             - name: checkout repository
               uses: actions/checkout@v4
+            - name: Set Up Java
+              uses: actions/setup-java@v4
+              with:
+                distribution: 'temurin'
+                java-version: '17'
+                cache: 'maven'
+            - name: Build with Maven
+              run: mvn -B package --file pom.xml
