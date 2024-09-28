@@ -9,10 +9,16 @@ on:
             dp-check-enabled:
                 required: true
                 type: string
+        outputs:
+            image-version:
+                description: 'Image Docker version'
+                value: ${{ jobs.build.outputs.version }}
 
 jobs:
     build:
         runs-on: ubuntu-latest
+        outputs:
+            version: ${{ steps.variables.outputs.version  }}
         steps:
             - name: checkout repository
               uses: actions/checkout@v4
