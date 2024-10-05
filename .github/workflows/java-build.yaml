@@ -65,14 +65,14 @@ jobs:
             
             - name: Publish Nexus
               run: |
-                  mvn deploy -B \
-                    -Durl='http://localhost:8081' \
+                  mvn deploy:deploy-file \
+                    -Durl="http://localhost:8081" \
                     -Dfile=target/$ARTIFACTID.jar \
                     -DgroupId=$GROUPID \
                     -DartifactId=$ARTIFACTID \
                     -Dpackaging=jar \
                     -Dversion=${{ steps.variables.outputs.version }} \
-                    -DrepositoryId='devops-maven-snapshot'
+                    -DrepositoryId="devops-maven-snapshot"
 
             - name: Set up Docker Buildx
               uses: docker/setup-buildx-action@v3
