@@ -61,13 +61,20 @@ jobs:
                 sonarToken: ${{ secrets.SONAR_TOKEN }}
                 projectBaseDir: '.'
             
+            - name:
+              run: |
+                echo "Verificando diretório"
+                ls
+                echo "Verificando diretório: /ms-save-car/target/ms-save-car.jar"
+                ls /target/ms-save-car.jar
+            
             - name: Nexus Publish
               uses: alxss01/action-publish-nexus@develop
               with:
                 nexus_url: 'http://localhost:8081'
                 username: ${{ secrets.NEXUS_USERNAME }}
                 password: ${{ secrets.NEXUS_PASSWORD }}
-                file_path: 'target/$ARTIFACTID.jar'
+                file_path: './target/ms-save-car.jar'
                 artifact_id: $ARTIFACTID
                 group_id: $GROUPID
                 version: $VERSION
