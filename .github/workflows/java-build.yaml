@@ -35,6 +35,12 @@ jobs:
                 version="${version:0:3}.${{ github.run_number }}"
                 echo "Versão do projeto: $version"
                 echo "version=$version" >> $GITHUB_OUTPUT
+                version=$($mvn -f "$worke_dir/pom.xml" help:evaluate -Dexpression=project.version -q -DforceStdout)
+                groupId=$($mvn -f "$worke_dir/pom.xml" help:evaluate -Dexpression=project.groupId -q -DforceStdout)
+                artifactId=$($mvn -f "$worke_dir/pom.xml" help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
+                echo "VERSION=$version" >> $GITHUB_ENV
+                echo "GROUPID=$groupId" >> $GITHUB_ENV
+                echo "ARTIFACTID=$artifactId" >> $GITHUB_ENV
                 appName=$(echo "${{ github.repository }}" | awk -F'/' '{print $2}')
                 echo "Name: $appName"
                 echo "appName=$appName" >> $GITHUB_OUTPUT
@@ -54,6 +60,18 @@ jobs:
                 sonarHostUrl: ${{ env.SONAR_URL }}
                 sonarToken: ${{ secrets.SONAR_TOKEN }}
                 projectBaseDir: '.'
+            
+            - name: Nexus Publish
+              uses: alxss01/action-publish-nexus@develop
+              with:
+                nexus_url: 'http://localhost:8081'
+                username: ${{ secrets.NEXUS_USERNAME }}
+                password: ${{ secrets.NEXUS_PASSWORD }}
+                file_path: 'target/$ARTIFACTID.jar'
+                artifact_id: $ARTIFACTID
+                group_id: $GROUPID
+                version: $VERSION
+                repository_id: 'devops-maven-snapshot'
 
 
             - name: Set up Docker Buildx
