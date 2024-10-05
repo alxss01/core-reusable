@@ -45,11 +45,6 @@ jobs:
             - name: Build with Maven
               run: mvn -B package --file pom.xml
 
-            - name: Sonar Scanner
-              uses: alxss01/action-sonar-composite@main
-              with:
-                who-to-greet: "Alex De Souza Silva"
-
 
             - name: Set up Docker Buildx
               uses: docker/setup-buildx-action@v3
