@@ -22,6 +22,7 @@ jobs:
         steps:
             - name: checkout repository
               uses: actions/checkout@v4
+              
             - name: create variables
               id: variables
               run: |
@@ -44,6 +45,9 @@ jobs:
                 cache: 'maven'
             - name: Build with Maven
               run: mvn -B package --file pom.xml
+
+            - name: SonarQube
+              uses: alxss01/action-sonar-composite@main
 
 
             - name: Set up Docker Buildx
