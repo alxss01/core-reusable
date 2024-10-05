@@ -16,7 +16,7 @@ on:
 
 jobs:
     build:
-        runs-on: alex-inspiron
+        runs-on: self-hosted
         outputs:
             version: ${{ steps.variables.outputs.version  }}
         env:
