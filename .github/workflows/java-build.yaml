@@ -35,9 +35,9 @@ jobs:
                 version="${version:0:3}.${{ github.run_number }}"
                 echo "Versão do projeto: $version"
                 echo "version=$version" >> $GITHUB_OUTPUT
-                version=$($mvn -f "$worke_dir/pom.xml" help:evaluate -Dexpression=project.version -q -DforceStdout)
-                groupId=$($mvn -f "$worke_dir/pom.xml" help:evaluate -Dexpression=project.groupId -q -DforceStdout)
-                artifactId=$($mvn -f "$worke_dir/pom.xml" help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
+                version=$($mvn -f "${{ github.workspace }}/pom.xml" help:evaluate -Dexpression=project.version -q -DforceStdout)
+                groupId=$($mvn -f "${{ github.workspace }}/pom.xml" help:evaluate -Dexpression=project.groupId -q -DforceStdout)
+                artifactId=$($mvn -f "${{ github.workspace }}/pom.xml" help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
                 echo "VERSION=$version" >> $GITHUB_ENV
                 echo "GROUPID=$groupId" >> $GITHUB_ENV
                 echo "ARTIFACTID=$artifactId" >> $GITHUB_ENV
