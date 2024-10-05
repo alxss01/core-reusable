@@ -65,7 +65,7 @@ jobs:
             
             - name: Publish Nexus
               run: |
-                  mvn deploy -B -s ~/.m2/settings.xml \
+                  mvn deploy -B -Dusername=${{ secrets.NEXUS_USERNAME }} -Dpassword=${{ secrets.NEXUS_PASSWORD }} \
                     -Durl="http://localhost:8081" \
                     -Dfile=target/$ARTIFACTID.jar \
                     -DgroupId=$GROUPID \
