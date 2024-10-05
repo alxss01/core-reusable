@@ -16,9 +16,11 @@ on:
 
 jobs:
     build:
-        runs-on: ubuntu-latest
+        runs-on: alex-inspiron
         outputs:
             version: ${{ steps.variables.outputs.version  }}
+        env:
+          SONAR_URL: 'http://localhost:9000'
         steps:
             - name: checkout repository
               uses: actions/checkout@v4
@@ -48,6 +50,10 @@ jobs:
 
             - name: SonarQube
               uses: alxss01/action-sonar-composite@main
+              with:
+                sonarHostUrl: ${{ env.SONAR_URL }}
+                sonarToken: ${{ secrets.SONAR_TOKEN }}
+                projectBaseDir: '.'
 
 
             - name: Set up Docker Buildx
