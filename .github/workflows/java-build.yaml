@@ -90,7 +90,7 @@ jobs:
             
             - name: Publish Nexus
               run: |
-                  mvn deploy -B  \
+                  mvn deploy -B  -s ./settings.xml \
                     -Durl=${{ vars.NEXUS_URL }} \
                     -Dfile=target/$ARTIFACTID.jar \
                     -DgroupId=$GROUPID \
