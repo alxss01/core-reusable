@@ -61,18 +61,43 @@ jobs:
                 sonarToken: ${{ secrets.SONAR_TOKEN }}
                 projectBaseDir: '.'
             
+            - name: Set up Maven Settings
+              uses: s4u/maven-settings-action@v3.0.0
+              with:
+                servers: |
+                  [{
+                    "id": "nexus-releases", 
+                    "username": "${{ secrets.NEXUS_USERNAME }}", 
+                    "password": "${{ secrets.NEXUS_PASSWORD }}"
+                  },
+                  {
+                    "id": "nexus-snapshots", 
+                    "username": "${{ secrets.NEXUS_USERNAME }}", 
+                    "password": "${{ secrets.NEXUS_PASSWORD }}"
+                  }]
 
+                mirrors: |
+                  [{
+                    "id": "nexus", 
+                    "name": "Central Repository", 
+                    "mirrorOf": "central", 
+                    "url": "http://${{ vars.NEXUS_URL }}/repository/${{ vars.NEXUS_REPO_NAME_SNAP }}"
+                  }]
+                
+                path: './settings.xml'
+                override: false
+                githubServer: false
             
             - name: Publish Nexus
               run: |
-                  mvn deploy -B -Dusername=${{ secrets.NEXUS_USERNAME }} -Dpassword=${{ secrets.NEXUS_PASSWORD }} \
-                    -Durl="http://localhost:8081" \
+                  mvn deploy -B  \
+                    -Durl=${{ vars.NEXUS_URL }} \
                     -Dfile=target/$ARTIFACTID.jar \
                     -DgroupId=$GROUPID \
                     -DartifactId=$ARTIFACTID \
                     -Dpackaging=jar \
                     -Dversion=${{ steps.variables.outputs.version }} \
-                    -DrepositoryId="devops-maven-snapshot"
+                    -DrepositoryId=${{ vars.NEXUS_REPO_NAME_SNAP }}
 
             - name: Set up Docker Buildx
               uses: docker/setup-buildx-action@v3
