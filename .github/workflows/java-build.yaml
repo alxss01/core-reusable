@@ -84,13 +84,13 @@ jobs:
                     "url": "http://${{ vars.NEXUS_URL }}/repository/${{ vars.NEXUS_REPO_NAME_SNAP }}"
                   }]
                 
-                path: '~/.m2/settings.xml'
+                path: './settings.xml'
                 override: false
                 githubServer: false
             
             - name: Publish Nexus
               run: |
-                  mvn deploy -B  -s ~/.m2/settings.xml \
+                  mvn deploy -B  -s ./settings.xml \
                     -Durl=${{ vars.NEXUS_URL }} \
                     -Dfile=target/$ARTIFACTID.jar \
                     -DgroupId=$GROUPID \
