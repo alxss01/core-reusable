@@ -90,6 +90,8 @@ jobs:
             
             - name: Publish Nexus
               run: |
+                  echo "pegando arquivo xml"
+                  cat ./settings.xml
                   mvn deploy -B  -s ./settings.xml \
                     -Durl=${{ vars.NEXUS_URL }} \
                     -Dfile=target/$ARTIFACTID.jar \
