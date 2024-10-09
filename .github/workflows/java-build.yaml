@@ -92,7 +92,7 @@ jobs:
               run: |
                   echo "pegando arquivo xml"
                   cat ./settings.xml
-                  mvn deploy -B  -s ./settings.xml \
+                  mvn deploy -B -f pom.xml -s ./settings.xml \
                     -Durl=${{ vars.NEXUS_URL }} \
                     -Dfile=target/$ARTIFACTID.jar \
                     -DgroupId=$GROUPID \
