@@ -67,21 +67,21 @@ jobs:
                 servers: |
                   [{
                     "id": "nexus-releases", 
-                    "username": "${{ secrets.NEXUS_USERNAME }}", 
-                    "password": "${{ secrets.NEXUS_PASSWORD }}"
+                    "username": "admin", 
+                    "password": "admin123"
                   },
                   {
                     "id": "nexus-snapshots", 
-                    "username": "${{ secrets.NEXUS_USERNAME }}", 
-                    "password": "${{ secrets.NEXUS_PASSWORD }}"
+                    "username": "admin", 
+                    "password": "admin123"
                   }]
 
                 mirrors: |
                   [{
-                    "id": "nexus", 
+                    "id": "central", 
                     "name": "Central Repository", 
-                    "mirrorOf": "central", 
-                    "url": "http://${{ vars.NEXUS_URL }}/repository/${{ vars.NEXUS_REPO_NAME_SNAP }}"
+                    "mirrorOf": "*", 
+                    "url": "http://${{ vars.NEXUS_URL }}/repository/maven-central"
                   }]
                 
                 path: './settings.xml'
