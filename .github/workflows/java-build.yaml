@@ -21,6 +21,9 @@ jobs:
             version: ${{ steps.variables.outputs.version  }}
         env:
           SONAR_URL: 'http://localhost:9000'
+          NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+
         steps:
             - name: checkout repository
               uses: actions/checkout@v4
@@ -67,13 +70,13 @@ jobs:
                 servers: |
                   [{
                     "id": "nexus-releases", 
-                    "username": "admin", 
-                    "password": "admin123"
+                    "username": "${{ env.NEXUS_USERNAME }}", 
+                    "password": "${{ env.NEXUS_USERNAME }}"
                   },
                   {
                     "id": "nexus-snapshots", 
-                    "username": "admin", 
-                    "password": "admin123"
+                    "username": "${{ env.NEXUS_USERNAME }}", 
+                    "password": "${{ env.NEXUS_USERNAME }}"
                   }]
 
                 mirrors: |
