@@ -93,11 +93,11 @@ jobs:
             - name: Publish Nexus
               uses: alxss01/action-publish-nexus@develop
               with:
-                file: "target/$ARTIFACTID.jar"
+                version: ${{ steps.variables.outputs.version }}
+                file_path: "target/$ARTIFACTID.jar"
                 groupId: $GROUPID
                 artifactId: $ARTIFACTID
-                version: ${{ steps.variables.outputs.version }}
-                repositoryId: Nexus 
+                repositoryId: ${{ vars.NEXUS_REPO_NAME_SNAP }} 
                 username: ${{ vars.NEXUS_USERNAME }}
                 password: ${{ secrets.NEXUS_PASSWORD }}
                 url: ${{ vars.NEXUS_URL }} 
