@@ -56,6 +56,7 @@ jobs:
               run: mvn -B package --file pom.xml
 
             - name: SonarQube
+              if: ${{ inputs.sonar-enabled == true }}
               uses: alxss01/action-sonar-composite@main
               with:
                 sonarHostUrl: ${{ env.SONAR_URL }}
