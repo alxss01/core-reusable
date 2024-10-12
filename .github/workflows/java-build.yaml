@@ -90,18 +90,16 @@ jobs:
                 githubServer: false
             
             - name: Publish Nexus
-              run: |
-                  echo "${{ vars.NEXUS_USERNAME }}"
-                  echo "pegando arquivo xml"
-                  cat ./settings.xml
-                  mvn deploy -B -f pom.xml -s ./settings.xml \
-                    -Durl=${{ vars.NEXUS_URL }} \
-                    -Dfile=target/$ARTIFACTID.jar \
-                    -DgroupId=$GROUPID \
-                    -DartifactId=$ARTIFACTID \
-                    -Dpackaging=jar \
-                    -Dversion=${{ steps.variables.outputs.version }} \
-                    -DrepositoryId=${{ vars.NEXUS_REPO_NAME_SNAP }}
+              uses: alxss01/action-publish-nexus@develop
+              with:
+                file: target/$ARTIFACTID.jar
+                groupId: $GROUPID
+                artifactId: $ARTIFACTID
+                version: ${{ steps.variables.outputs.version }}
+                repositoryId: Nexus 
+                username: ${{ vars.NEXUS_USERNAME }}
+                password: ${{ secrets.NEXUS_PASSWORD }}
+                url: ${{ vars.NEXUS_URL }} 
 
             - name: Set up Docker Buildx
               uses: docker/setup-buildx-action@v3
