@@ -93,7 +93,7 @@ jobs:
             - name: Publish Nexus
               uses: alxss01/action-publish-nexus@develop
               with:
-                file: target/$ARTIFACTID.jar
+                file: "target/$ARTIFACTID.jar"
                 groupId: $GROUPID
                 artifactId: $ARTIFACTID
                 version: ${{ steps.variables.outputs.version }}
